@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/default_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/lasted_highlight"
+            android:checked="true"
+            android:icon="@drawable/ic_new"
+            android:title="@string/menu_lasted_highlight" />
+
+        <item
+            android:id="@+id/my_favorite"
+            android:checked="false"
+            android:icon="@drawable/ic_stars_black_24dp"
+            android:title="@string/menu_my_favorite" />
+
+        <item
+            android:id="@+id/ranking_table"
+            android:checked="false"
+            android:icon="@drawable/ic_ranking"
+            android:title="@string/menu_ranking_table" />
+
+    </group>
+</menu>
