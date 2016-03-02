@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fontify="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
-    android:background="@drawable/bg_header">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/header_menu_margin_top">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/menu_logo"
+        android:layout_width="@dimen/header_menu_logo_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:adjustViewBounds="true"
+        android:paddingBottom="@dimen/header_menu_margin_bottom"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_left_menu" />
+
+    <com.antran.expressfootball.widget.TextViewWithFont
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/logo_text_distance"
+        android:layout_toRightOf="@+id/menu_logo"
+        android:paddingTop="@dimen/header_menu_margin_bottom"
+        android:text="@string/app_name"
+        android:textColor="@color/text_menu_color"
+        android:textSize="@dimen/header_menu_text_size"
+        fontify:font="@string/font_roboto_light" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
         android:layout_alignParentBottom="true"
-        android:weightSum="3">
-
-        <!--<ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="2"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/real_ball" />-->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text="@string/app_name"
-            android:textColor="@android:color/white"
-            android:textSize="22sp" />
-
-    </LinearLayout>
+        android:background="@android:color/white" />
 
 </RelativeLayout>

@@ -1,6 +1,27 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="design_navigation_padding_top_default" tools:override="true">0dp</dimen>
+    <dimen name="design_navigation_separator_vertical_padding" tools:override="true">0dp</dimen>
+    <dimen name="design_navigation_padding_bottom" tools:override="true">0dp</dimen>
+
+    <!--header menu-->
+    <dimen name="header_menu_margin_top">44dp</dimen>
+    <dimen name="header_menu_margin_bottom">25dp</dimen>
+    <dimen name="header_menu_logo_width">100dp</dimen>
+    <dimen name="logo_text_distance">15dp</dimen>
+    <dimen name="header_menu_text_size">22sp</dimen>
+    
+    <!--splash screen-->
+    <dimen name="splash_text_size">21sp</dimen>
+
+    <!--list matches screen-->
+    <dimen name="title_match_size">18sp</dimen>
+    <dimen name="detail_match_size">15sp</dimen>
+    <dimen name="date_match_size">12.07sp</dimen>
+    <dimen name="time_match_size">13.58sp</dimen>
+    <dimen name="distance_cards">5dp</dimen>
+    <dimen name="content_detail_padding">5dp</dimen>
 </resources>

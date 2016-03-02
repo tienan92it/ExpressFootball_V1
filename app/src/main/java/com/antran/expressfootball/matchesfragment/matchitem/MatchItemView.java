@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.antran.expressfootball.R;
 import com.antran.expressfootball.matchesfragment.MatchInfo;
+import com.antran.expressfootball.widget.TextViewWithFont;
 import com.bumptech.glide.GenericRequestBuilder;
 import com.squareup.picasso.Picasso;
 
@@ -20,14 +21,16 @@ import java.text.SimpleDateFormat;
 public class MatchItemView {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("kk:mm");
 
     private static final int LAYOUT_ITEM = R.layout.match_item;
 
     private View container;
     private CardView cardView;
-    private TextView title;
-    private TextView detail;
-    private TextView date;
+    private TextViewWithFont title;
+    private TextViewWithFont detail;
+    private TextViewWithFont date;
+    private TextViewWithFont time;
     //    private ImageView homeLogo;
 //    private TextView homeScore;
 //    private ImageView awayLogo;
@@ -43,9 +46,11 @@ public class MatchItemView {
         container = LayoutInflater.from(parent.getContext()).inflate(LAYOUT_ITEM, parent, false);
 
         cardView = (CardView) container.findViewById(R.id.cardview);
-        title = (TextView) container.findViewById(R.id.title);
-        detail = (TextView) container.findViewById(R.id.detail);
-        date = (TextView) container.findViewById(R.id.date);
+        title = (TextViewWithFont) container.findViewById(R.id.title);
+        title.setSelected(true);
+        detail = (TextViewWithFont) container.findViewById(R.id.detail);
+        date = (TextViewWithFont) container.findViewById(R.id.date);
+        time = (TextViewWithFont) container.findViewById(R.id.time);
         thumbnail = (ImageView) container.findViewById(R.id.thumbnail);
 //        homeLogo = (ImageView) container.findViewById(R.id.home_logo);
 //        homeLogo.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -74,8 +79,12 @@ public class MatchItemView {
         } else
             title.setText(matchInfo.getHomeTeam().getTeamName() + " " + matchInfo.getHomeTeamScore() + " - "
                     + " " + matchInfo.getAwayTeamScore() + " " + matchInfo.getAwayTeam().getTeamName());
-        detail.setText(matchInfo.getRound() + " - " + matchInfo.getLeague().getLeagueName());
+        if (matchInfo.getRound() != 0)
+            detail.setText(matchInfo.getRound() + " - " + matchInfo.getLeague().getLeagueName());
+        else
+            detail.setText(matchInfo.getLeague().getLeagueName());
         date.setText(DATE_FORMAT.format(matchInfo.getDate()));
+        time.setText(TIME_FORMAT.format(matchInfo.getDate()));
         if (matchInfo.getThumbnail() != null && matchInfo.getThumbnail().compareTo("") != 0)
             picasso.load(matchInfo.getThumbnail()).placeholder(R.drawable.video_placeholder).into(thumbnail);
         else

@@ -29,7 +29,7 @@ public class SplashScreen extends Activity {
         activity = this;
         setContentView(R.layout.splash_screen_view);
 
-        imgBall = (ImageView) findViewById(R.id.ball);
+        imgBall = (ImageView) findViewById(R.id.logo);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SplashScreen extends Activity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                imgBall.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate));
+//                imgBall.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate));
             }
 
             @Override

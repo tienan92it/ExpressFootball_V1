@@ -284,8 +284,10 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
                     if (e == null) {
-                        matches.clear();
-                        for (ParseObject match : objects) {
+//                        matches.clear();
+                        int matchesSize = matches.size();
+                        for (int i = matchesSize; i < objects.size(); i++) {
+                            ParseObject match = objects.get(i);
                             matches.add(MatchInfo.parse(match));
                             MatchDataHelper.getMatchFromId(match.getInt("match_id"), new FunctionCallback<JSONObject>() {
                                 @Override
@@ -310,7 +312,7 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                             //updateItemInBackground(MatchInfo.parse(match));
                         }
                         Toast.makeText(context, "Matches " + matches.size(), Toast.LENGTH_SHORT).show();
-                       // matchesView.hideProgressLoadMore();
+                        // matchesView.hideProgressLoadMore();
                         notifyDataSetChanged();
                     } else {
                         e.printStackTrace();
@@ -323,14 +325,17 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
                     if (e == null) {
-                        matches.clear();
-                        for (ParseObject match : objects) {
+//                        matches.clear();
+                        int matchesSize = matches.size();
+                        for (int i = matchesSize; i < objects.size(); i++) {
+                            ParseObject match = objects.get(i);
                             matches.add(MatchInfo.parse(match));
                             MatchDataHelper.getMatchFromId(match.getInt("match_id"), new FunctionCallback<JSONObject>() {
                                 @Override
                                 public void done(JSONObject object, ParseException e) {
                                     try {
                                         //JSONObject jsMatch = new JSONObject(object.get("league"));
+                                        Log.e("match_id", object.getInt("match_id") + "");
                                         MatchInfo tmpMatch = MatchInfo.parse(object);
                                         if (matches.size() > 0) {
                                             for (int i = 0; i < matches.size(); i++) {
@@ -349,7 +354,7 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                             //updateItemInBackground(MatchInfo.parse(match));
                         }
                         Toast.makeText(context, "Matches " + matches.size(), Toast.LENGTH_SHORT).show();
-                       // matchesView.hideProgressLoadMore();
+                        // matchesView.hideProgressLoadMore();
                         notifyDataSetChanged();
                     } else {
                         e.printStackTrace();

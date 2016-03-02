@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Express Football</string>
     
-    <string name="menu_lasted_highlight">Lasted Highlight</string>
+    <string name="menu_latest_highlight">Latest Highlight</string>
     <string name="menu_my_favorite">My Favorite</string>
     <string name="menu_ranking_table">Ranking table</string>
 

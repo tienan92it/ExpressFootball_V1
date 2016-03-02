@@ -9,7 +9,7 @@
             android:id="@+id/lasted_highlight"
             android:checked="true"
             android:icon="@drawable/ic_new"
-            android:title="@string/menu_lasted_highlight" />
+            android:title="@string/menu_latest_highlight" />
 
         <item
             android:id="@+id/my_favorite"
@@ -24,4 +24,7 @@
             android:title="@string/menu_ranking_table" />
 
     </group>
+    <group
+        android:id="@+id/league_group"
+        android:checkableBehavior="single"></group>
 </menu>

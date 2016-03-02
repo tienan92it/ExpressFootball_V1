@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.antran.expressfootball.R;
+import com.antran.expressfootball.util.FontManager;
 
 /**
  * Created by AnTran on 13/12/2015.
@@ -18,12 +19,17 @@ public class MainView {
 
     private Toolbar toolbar;
 
+    private String titleFont;
+
     public MainView(Activity activity, DrawerLayout drawerLayout) {
         this.drawerLayout = drawerLayout;
 
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) drawerLayout.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_name);
+        titleFont = drawerLayout.getContext().getString(R.string.font_roboto_light);
+
+        String title = drawerLayout.getContext().getString(R.string.app_name);
+        toolbar.setTitle(FontManager.transferTextToFont(drawerLayout.getContext(), title, titleFont));
         toolbar.setTitleTextColor(Color.WHITE);
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.app_name, R.string.app_name) {
@@ -58,6 +64,6 @@ public class MainView {
     }
 
     public void setTitle(String title) {
-        toolbar.setTitle(title);
+        toolbar.setTitle(FontManager.transferTextToFont(drawerLayout.getContext(), title, titleFont));
     }
 }

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,7 @@ public class LeagueFragment extends Fragment implements LoadingControllerListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.lasted_high_light_fragment, container, false);
+        rootview = inflater.inflate(R.layout.list_matches_fragment, container, false);
 
         LoadingView loadingView = new LoadingView(context);
         loadingController = new LoadingController(loadingView, this);

@@ -16,8 +16,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/toolbar_color"
             android:title="Express Football"
-            android:background="@color/colorPrimary"
+            android:elevation="6dp"
             android:visibility="visible">
 
         </android.support.v7.widget.Toolbar>
@@ -33,7 +34,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:background="@drawable/bg_left_menu"
         app:headerLayout="@layout/navigation_header_view"
+        app:itemIconTint="@drawable/drawer_item"
+        app:itemTextColor="@drawable/drawer_item"
+        app:itemBackground="@drawable/drawer_item_background"
         app:menu="@menu/drawer">
 
     </android.support.design.widget.NavigationView>

@@ -7,10 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:listDivider">@android:color/white</item>
     </style>
 
-    <style name="RootTheme" parent="android:Theme.Holo">
-    </style>
+    <style name="RootTheme" parent="android:Theme.Holo"></style>
 
     <style name="PlayerTheme" parent="@style/RootTheme">
         <item name="android:windowNoTitle">true</item>
@@ -24,4 +24,8 @@
         <item name="android:minWidth">40dp</item>
     </style>
 
+    <style name="MyNavigationView" parent="Widget.Design.NavigationView">
+        <item name="android:listDivider">@android:color/white</item>
+        <item name="android:dividerHeight">2dp</item>
+    </style>
 </resources>

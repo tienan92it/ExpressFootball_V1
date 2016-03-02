@@ -189,10 +189,10 @@ public class MatchInfo {
         matchInfo.setHomeTeamScore(object.getInt("score1"));
         matchInfo.setAwayTeamScore(object.getInt("score2"));
         Team homeTeamTmp = new Team();
-        homeTeamTmp.setTeamId(object.getInt("team1"));
+        homeTeamTmp.setTeamName(object.getString("team1"));
         matchInfo.setHomeTeam(homeTeamTmp);
         Team awayTeamTmp = new Team();
-        awayTeamTmp.setTeamId(object.getInt("team2"));
+        awayTeamTmp.setTeamName(object.getString("team2"));
         matchInfo.setAwayTeam(awayTeamTmp);
         matchInfo.setStadium(object.getString("stadium"));
         matchInfo.setThumbnail(object.getString("thumbnail"));

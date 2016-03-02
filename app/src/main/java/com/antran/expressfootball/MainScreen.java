@@ -88,7 +88,7 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
     @Override
     public void onClickLastedHighLight() {
         Toast.makeText(context, "Lasted highlight", Toast.LENGTH_SHORT).show();
-        mainController.setTitle(getString(R.string.menu_lasted_highlight));
+        mainController.setTitle(getString(R.string.menu_latest_highlight));
         LastedHighlightFragment fragment = new LastedHighlightFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment);
