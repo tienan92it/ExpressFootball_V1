@@ -1,10 +1,14 @@
 package com.antran.expressfootball.model;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by AnTran on 12/12/2015.
@@ -58,6 +62,16 @@ public class League {
     }
 
     public static League parse(ParseObject object) {
+        League league = new League();
+        league.setLeagueId(object.getInt("league_id"));
+        league.setLeagueName(object.getString("name"));
+        league.setPriority(object.getInt("order"));
+        league.setStatus(object.getInt("status"));
+        league.setLogo(object.getString("thumbnail"));
+        return league;
+    }
+
+    public static League parse(JSONObject object) throws JSONException {
         League league = new League();
         league.setLeagueId(object.getInt("league_id"));
         league.setLeagueName(object.getString("name"));

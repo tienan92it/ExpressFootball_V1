@@ -3,6 +3,9 @@ package com.antran.expressfootball.model;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by AnTran on 12/12/2015.
  */
@@ -11,7 +14,7 @@ public class Team {
     private int teamId;
     private String teamName;
     private String logo;
-    private League league;
+    private int leagueId;
     private String crestUrl;
 
     public int getTeamId() {
@@ -38,12 +41,12 @@ public class Team {
         this.logo = logo;
     }
 
-    public League getLeague() {
-        return league;
+    public int getLeagueId() {
+        return leagueId;
     }
 
-    public void setLeague(League league) {
-        this.league = league;
+    public void setLeagueId(int leagueId) {
+        this.leagueId = leagueId;
     }
 
     public String getCrestUrl() {
@@ -54,11 +57,12 @@ public class Team {
         this.crestUrl = crestUrl;
     }
 
-    public static Team parse(ParseObject object) {
+    public static Team parse(JSONObject object) throws JSONException {
         Team team = new Team();
         team.setTeamId(object.getInt("team_id"));
-        team.setTeamName(object.getString("name"));
-        team.setCrestUrl(object.getString("crestUrl"));
+        team.setTeamName(object.getString("short_name"));
+        team.setCrestUrl(object.getString("crest_url"));
+        team.setLeagueId(object.getInt("league_id"));
 //        team.setLogo(object.getParseFile("thumbnail").getUrl());
 //        try {
 //            team.setLeagueId(League.parse(object.getParseObject("league").fetchIfNeeded()));

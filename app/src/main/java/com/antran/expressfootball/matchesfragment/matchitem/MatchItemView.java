@@ -1,18 +1,27 @@
 package com.antran.expressfootball.matchesfragment.matchitem;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.antran.expressfootball.R;
 import com.antran.expressfootball.matchesfragment.MatchInfo;
+import com.antran.expressfootball.networkrequest.MySingleton;
 import com.antran.expressfootball.widget.TextViewWithFont;
 import com.bumptech.glide.GenericRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.caverock.androidsvg.SVG;
 import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 
 /**
@@ -38,11 +47,12 @@ public class MatchItemView {
 //    private TextView league;
 //    private TextView stadium;
 //    private TextView round;
-    private ImageView thumbnail;
+    private NetworkImageView thumbnail;
     private Picasso picasso;
-    private GenericRequestBuilder requestBuilder;
+    private GenericRequestBuilder<Uri, InputStream, SVG, Bitmap> requestBuilder;
+    private ImageLoader imageLoader;
 
-    public MatchItemView(ViewGroup parent, GenericRequestBuilder requestBuilder) {
+    public MatchItemView(ViewGroup parent) {
         container = LayoutInflater.from(parent.getContext()).inflate(LAYOUT_ITEM, parent, false);
 
         cardView = (CardView) container.findViewById(R.id.cardview);
@@ -51,7 +61,8 @@ public class MatchItemView {
         detail = (TextViewWithFont) container.findViewById(R.id.detail);
         date = (TextViewWithFont) container.findViewById(R.id.date);
         time = (TextViewWithFont) container.findViewById(R.id.time);
-        thumbnail = (ImageView) container.findViewById(R.id.thumbnail);
+        thumbnail = (NetworkImageView) container.findViewById(R.id.thumbnail);
+        thumbnail.setDefaultImageResId(R.drawable.video_placeholder);
 //        homeLogo = (ImageView) container.findViewById(R.id.home_logo);
 //        homeLogo.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 //        homeScore = (TextView) container.findViewById(R.id.home_score);
@@ -66,7 +77,8 @@ public class MatchItemView {
         picasso.setIndicatorsEnabled(false);
 //        picasso.setLoggingEnabled(true);
 
-        this.requestBuilder = requestBuilder;
+        // Get the ImageLoader through your singleton class.
+        imageLoader = MySingleton.getInstance(parent.getContext()).getImageLoader();
     }
 
     public View getContainer() {
@@ -85,34 +97,10 @@ public class MatchItemView {
             detail.setText(matchInfo.getLeague().getLeagueName());
         date.setText(DATE_FORMAT.format(matchInfo.getDate()));
         time.setText(TIME_FORMAT.format(matchInfo.getDate()));
-        if (matchInfo.getThumbnail() != null && matchInfo.getThumbnail().compareTo("") != 0)
-            picasso.load(matchInfo.getThumbnail()).placeholder(R.drawable.video_placeholder).into(thumbnail);
-        else
+        if (matchInfo.getThumbnail() != null && matchInfo.getThumbnail().compareTo("") != 0) {
+            thumbnail.setImageUrl(matchInfo.getThumbnail(), imageLoader);
+        } else
             thumbnail.setImageResource(R.drawable.video_placeholder);
-//        homeScore.setText(String.valueOf(matchInfo.getHomeTeamScore()));
-//        awayScore.setText(String.valueOf(matchInfo.getAwayTeamScore()));
-//        league.setText(matchInfo.getLeagueId().getLeagueName());
-//        stadium.setText(matchInfo.getStadium());
-//        round.setText(String.valueOf(matchInfo.getRound()));
-//        String homeLogoUrl = matchInfo.getHomeTeamId().getCrestUrl();
-//        String awayLogoUrl = matchInfo.getAwayTeamId().getCrestUrl();
-//        if (homeLogoUrl.endsWith(".svg"))
-//            requestBuilder
-//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                            // SVG cannot be serialized so it's not worth to cache it
-//                    .load(Uri.parse(homeLogoUrl))
-//                    .into(homeLogo);
-//        else
-//            picasso.load(homeLogoUrl).placeholder(R.drawable.ic_ball).into(homeLogo);
-//
-//        if (awayLogoUrl.endsWith(".svg"))
-//            requestBuilder
-//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                            // SVG cannot be serialized so it's not worth to cache it
-//                    .load(Uri.parse(awayLogoUrl))
-//                    .into(awayLogo);
-//        else
-//            picasso.load(awayLogoUrl).placeholder(R.drawable.ic_ball).into(awayLogo);
     }
 
     public void setListener(final MatchItemViewListener ltn) {

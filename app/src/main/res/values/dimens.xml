@@ -22,6 +22,21 @@
     <dimen name="detail_match_size">15sp</dimen>
     <dimen name="date_match_size">12.07sp</dimen>
     <dimen name="time_match_size">13.58sp</dimen>
-    <dimen name="distance_cards">5dp</dimen>
+    <dimen name="distance_cards">3dp</dimen>
     <dimen name="content_detail_padding">5dp</dimen>
+
+    <!--ranking table-->
+    <dimen name="table_header_text_size">13.3sp</dimen>
+    <dimen name="row_height">43dp</dimen>
+    <dimen name="table_text_size">16.5sp</dimen>
+    <dimen name="table_text_point">17.8sp</dimen>
+    <dimen name="distance_rows">2dp</dimen>
+    <dimen name="ranking_logo_team_width">50dp</dimen>
+
+    <!--favorite team item-->
+    <dimen name="favorite_team_text_size">18.2sp</dimen>
+    <dimen name="logo_team_margin_left">25dp</dimen>
+    <dimen name="logo_team_margin_right">15dp</dimen>
+    <dimen name="logo_team_margin">10dp</dimen>
+
 </resources>

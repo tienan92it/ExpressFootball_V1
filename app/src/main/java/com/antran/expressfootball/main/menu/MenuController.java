@@ -1,14 +1,31 @@
 package com.antran.expressfootball.main.menu;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.antran.expressfootball.R;
+import com.antran.expressfootball.caching.CachingContant;
+import com.antran.expressfootball.caching.CachingManager;
+import com.antran.expressfootball.matchesfragment.MatchInfo;
 import com.antran.expressfootball.model.League;
-import com.antran.expressfootball.service.LeagueDataHelper;
+import com.antran.expressfootball.datahelper.LeagueDataHelper;
+import com.antran.expressfootball.model.Leagues;
+import com.antran.expressfootball.networkrequest.Global;
+import com.antran.expressfootball.networkrequest.MySingleton;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +39,15 @@ public class MenuController implements MenuViewListener {
     private List<League> menuItems;
     private MenuView menuView;
     private MenuControllerListener listener;
+    private List<League> leagues;
 
     public MenuController(Context context, MenuView menuView, MenuControllerListener ltn) {
+//        super(context, R.layout.drawer_list_item);
         this.context = context;
         this.menuView = menuView;
         this.listener = ltn;
         menuItems = new ArrayList<League>();
+        this.leagues = Leagues.getInstance(context).getLeagues();
     }
 
     @Override
@@ -48,9 +68,6 @@ public class MenuController implements MenuViewListener {
             case R.id.my_favorite:
                 listener.onClickMyFavorite();
                 break;
-//            case R.id.la_liga:
-//                listener.onClickLigaBBVA();
-//                break;
             case R.id.ranking_table:
                 listener.onClickRankingTable();
                 break;
@@ -61,27 +78,53 @@ public class MenuController implements MenuViewListener {
     }
 
     public void loadLeagueMenuItems() {
-        listener.onLoading();
+//        listener.onLoading();
         menuItems.clear();
         menuView.clearLeagueMenuItem();
-        LeagueDataHelper.getLeagues(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null && objects.size() > 0) {
-                    for (ParseObject item : objects) {
-                        League league = League.parse(item);
-                        if (league.getStatus() == 1) {
-                            menuItems.add(league);
-                            menuView.addLeagueMenuItem(league.getPriority(), league.getLeagueName(), league.getLogo(),
-                                    listener.onSubMenuItemClick(league.getLeagueId(), league.getLeagueName()));
-                        }
-                    }
-                } else {
-                    e.printStackTrace();
-                }
-                listener.onLoaded();
+        int leaguesSize = leagues.size();
+        for (int i = 0; i < leaguesSize; i++) {
+            League league = leagues.get(i);
+            if (league.getStatus() == 1) {
+                menuItems.add(league);
+                menuView.addLeagueMenuItem(league.getPriority(), league.getLeagueName(), league.getLogo(),
+                        listener.onSubMenuItemClick(league.getLeagueId(), league.getLeagueName()));
             }
-        });
-
+        }
+//        String url = Global.getURLLeaguesWith(1, 15, "order", "asc");
+//        Log.e("URL", url);
+//        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        listener.onLoaded();
+////                        CachingManager.getInstance(context).cachesString(CachingContant.LEAGUES_JSON, response.toString());
+//                        try {
+//                            Leagues.getInstance(context).importLeagues(response);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        for (int i = 0; i < response.length(); i++) {
+//                            try {
+//                                JSONObject jsonObject = response.getJSONObject(i);
+//                                League league = League.parse(jsonObject);
+//                                if (league.getStatus() == 1) {
+//                                    menuItems.add(league);
+//                                    menuView.addLeagueMenuItem(league.getPriority(), league.getLeagueName(), league.getLogo(),
+//                                            listener.onSubMenuItemClick(league.getLeagueId(), league.getLeagueName()));
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        listener.onLoaded();
+//                        Toast.makeText(context, "Some things went wrong", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//        MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 }

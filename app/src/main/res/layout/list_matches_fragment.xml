@@ -14,14 +14,5 @@
             android:layout_height="wrap_content"
             android:background="@color/background_content"></android.support.v7.widget.RecyclerView>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/recyclerview"
-            android:indeterminateDrawable="@drawable/progress"
-            android:visibility="gone"></ProgressBar>
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

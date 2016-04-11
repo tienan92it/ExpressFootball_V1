@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fontify="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_content">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/card_item_background"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/menu_item_background"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="10">
+
+            <com.antran.expressfootball.widget.TextViewWithFont
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="#"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/table_header_text_size"
+                fontify:font="@string/font_roboto_light" />
+
+            <com.antran.expressfootball.widget.TextViewWithFont
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:gravity="left"
+                android:text="Club"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/table_header_text_size"
+                fontify:font="@string/font_roboto_light" />
+
+            <com.antran.expressfootball.widget.TextViewWithFont
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="P"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/table_header_text_size"
+                fontify:font="@string/font_roboto_light" />
+
+            <com.antran.expressfootball.widget.TextViewWithFont
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="GD"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/table_header_text_size"
+                fontify:font="@string/font_roboto_light" />
+
+            <com.antran.expressfootball.widget.TextViewWithFont
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Pts"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/table_header_text_size"
+                fontify:font="@string/font_roboto_light" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</android.support.design.widget.CoordinatorLayout>

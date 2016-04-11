@@ -60,21 +60,8 @@ public class LeagueFragment extends Fragment implements LoadingControllerListene
         LoadingView loadingView = new LoadingView(context);
         loadingController = new LoadingController(loadingView, this);
 
-        GenericRequestBuilder requestBuilder = Glide.with(getActivity())
-                .using(Glide.buildStreamModelLoader(Uri.class, getActivity()), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
-                .decoder(new SvgDecoder())
-                .placeholder(R.drawable.ic_ball)
-                .error(R.drawable.ic_ball)
-                .animate(android.R.anim.fade_in)
-                .listener(new SvgSoftwareLayerSetter<Uri>());
-
         MatchesView matchesView = new MatchesView((SwipeRefreshLayout) rootview.findViewById(R.id.root_view));
-        matchesController = new MatchesController(context, matchesView, requestBuilder, this);
+        matchesController = new MatchesController(context, matchesView, this);
         matchesView.setListener(matchesController);
         matchesView.setAdapter(matchesController);
 

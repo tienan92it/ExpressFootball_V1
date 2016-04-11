@@ -206,9 +206,9 @@ public class MatchInfo {
 
         matchInfo.setMatchId(object.getInt("match_id"));
         League leagueTmp = new League();
-        JSONObject league = object.getJSONObject("league");
-        leagueTmp.setLeagueId(league.getInt("league_id"));
-        leagueTmp.setLeagueName(league.getString("name"));
+//        JSONObject league = object.getJSONObject("league");
+        leagueTmp.setLeagueId(object.getInt("league_id"));
+//        leagueTmp.setLeagueName(league.getString("name"));
         matchInfo.setLeague(leagueTmp);
         if (object.has("date_match")) {
             long dateInMillis = object.getLong("date_match");
@@ -223,18 +223,18 @@ public class MatchInfo {
             matchInfo.setAwayTeamScore(object.getInt("score2"));
         Team homeTeamTmp = new Team();
         if (object.has("team1")) {
-            JSONObject team1 = object.getJSONObject("team1");
-            homeTeamTmp.setTeamId(team1.getInt("team_id"));
-            homeTeamTmp.setTeamName(team1.getString("name"));
-            homeTeamTmp.setCrestUrl(team1.getString("crest_url"));
+//            JSONObject team1 = object.getJSONObject("team1");
+//            homeTeamTmp.setTeamId(object.getInt("team_id"));
+            homeTeamTmp.setTeamName(object.getString("team1"));
+//            homeTeamTmp.setCrestUrl(team1.getString("crest_url"));
         }
         matchInfo.setHomeTeam(homeTeamTmp);
         Team awayTeamTmp = new Team();
         if (object.has("team2")) {
-            JSONObject team2 = object.getJSONObject("team2");
-            homeTeamTmp.setTeamId(team2.getInt("team_id"));
-            homeTeamTmp.setTeamName(team2.getString("name"));
-            homeTeamTmp.setCrestUrl(team2.getString("crest_url"));
+//            JSONObject team2 = object.getJSONObject("team2");
+//            homeTeamTmp.setTeamId(team2.getInt("team_id"));
+            homeTeamTmp.setTeamName(object.getString("team2"));
+//            homeTeamTmp.setCrestUrl(team2.getString("crest_url"));
         }
         matchInfo.setAwayTeam(awayTeamTmp);
         if (object.has("stadium"))

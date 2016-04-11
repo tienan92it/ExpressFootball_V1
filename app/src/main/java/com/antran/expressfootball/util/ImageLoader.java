@@ -3,6 +3,7 @@ package com.antran.expressfootball.util;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -77,4 +78,9 @@ public class ImageLoader extends AsyncTask<Void, Void, Drawable> {
     private boolean isSVGImage() {
         return stringUrl.endsWith(".svg");
     }
+
+//    public static Bitmap transferColor(Bitmap bitmap){
+//        Canvas canvas = new Canvas();
+//        canvas.draw
+//    }
 }

@@ -10,7 +10,7 @@
         <item name="android:listDivider">@android:color/white</item>
     </style>
 
-    <style name="RootTheme" parent="android:Theme.Holo"></style>
+    <style name="RootTheme" parent="android:Theme.Holo.Light"></style>
 
     <style name="PlayerTheme" parent="@style/RootTheme">
         <item name="android:windowNoTitle">true</item>
@@ -27,5 +27,9 @@
     <style name="MyNavigationView" parent="Widget.Design.NavigationView">
         <item name="android:listDivider">@android:color/white</item>
         <item name="android:dividerHeight">2dp</item>
+    </style>
+
+    <style name="CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 </resources>

@@ -44,4 +44,7 @@
     <string name="description">Media Controls</string>
 
     <string name="touch_to_retry"><u>Touch to retry</u></string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

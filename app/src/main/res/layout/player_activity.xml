@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2014 The Android Open Source Project
+<?xml version="1.0" encoding="UTF-8"?><!-- Copyright (C) 2014 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
@@ -11,54 +10,87 @@
      limitations under the License.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fontify="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
-    android:focusable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
     android:keepScreenOn="true">
 
-    <com.google.android.exoplayer.AspectRatioFrameLayout android:id="@+id/video_frame"
+    <com.google.android.exoplayer.AspectRatioFrameLayout
+        android:id="@+id/video_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
-        <SurfaceView android:id="@+id/surface_view"
+        <SurfaceView
+            android:id="@+id/surface_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
-        <View android:id="@+id/shutter"
+        <View
+            android:id="@+id/shutter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/black"/>
+            android:background="@android:color/black" />
 
-        <com.google.android.exoplayer.text.SubtitleLayout android:id="@+id/subtitles"
+        <com.google.android.exoplayer.text.SubtitleLayout
+            android:id="@+id/subtitles"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:indeterminateDrawable="@drawable/progress" >
-        </ProgressBar>
+            android:theme="@style/CircularProgress"
+            android:visibility="gone"></ProgressBar>
 
         <TextView
             android:id="@+id/retry"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/overlay_black"
+            android:gravity="center"
             android:text="@string/touch_to_retry"
             android:textColor="@android:color/white"
-            android:background="@color/overlay_black"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/video_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:background="#88000000"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
+            <com.antran.expressfootball.widget.TextViewWithFont
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                fontify:font="@string/font_roboto_light" />
+        </LinearLayout>
 
     </com.google.android.exoplayer.AspectRatioFrameLayout>
 
@@ -68,65 +100,73 @@
         android:background="#88000000"
         android:orientation="vertical">
 
-        <TextView android:id="@+id/player_state_view"
+        <TextView
+            android:id="@+id/player_state_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:textSize="10sp"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
-        <TextView android:id="@+id/debug_text_view"
+        <TextView
+            android:id="@+id/debug_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:textSize="10sp"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
-        <LinearLayout android:id="@+id/controls_root"
+        <LinearLayout
+            android:id="@+id/controls_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <Button android:id="@+id/video_controls"
+            <Button
+                android:id="@+id/video_controls"
+                style="@style/DemoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showVideoPopup"
                 android:text="@string/video"
-                style="@style/DemoButton"
-                android:visibility="gone"
-                android:onClick="showVideoPopup"/>
+                android:visibility="gone" />
 
-            <Button android:id="@+id/audio_controls"
+            <Button
+                android:id="@+id/audio_controls"
+                style="@style/DemoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showAudioPopup"
                 android:text="@string/audio"
-                style="@style/DemoButton"
-                android:visibility="gone"
-                android:onClick="showAudioPopup"/>
+                android:visibility="gone" />
 
-            <Button android:id="@+id/text_controls"
+            <Button
+                android:id="@+id/text_controls"
+                style="@style/DemoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showTextPopup"
                 android:text="@string/text"
-                style="@style/DemoButton"
-                android:visibility="gone"
-                android:onClick="showTextPopup"/>
+                android:visibility="gone" />
 
-            <Button android:id="@+id/verbose_log_controls"
+            <Button
+                android:id="@+id/verbose_log_controls"
+                style="@style/DemoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/logging"
-                style="@style/DemoButton"
-                android:onClick="showVerboseLogPopup"/>
+                android:onClick="showVerboseLogPopup"
+                android:text="@string/logging" />
 
-            <Button android:id="@+id/retry_button"
+            <Button
+                android:id="@+id/retry_button"
+                style="@style/DemoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/retry"
-                android:visibility="gone"
-                style="@style/DemoButton"/>
+                android:visibility="gone" />
 
         </LinearLayout>
 

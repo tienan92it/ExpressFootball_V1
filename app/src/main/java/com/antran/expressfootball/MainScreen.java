@@ -1,25 +1,41 @@
 package com.antran.expressfootball;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.antran.expressfootball.caching.CachingContant;
+import com.antran.expressfootball.caching.CachingManager;
+import com.antran.expressfootball.favoritefragment.FavoriteFragment;
 import com.antran.expressfootball.loading.LoadingController;
 import com.antran.expressfootball.loading.LoadingControllerListener;
 import com.antran.expressfootball.loading.LoadingView;
 import com.antran.expressfootball.main.MainController;
 import com.antran.expressfootball.main.MainControllerListener;
 import com.antran.expressfootball.main.MainView;
+import com.antran.expressfootball.main.menu.MenuAdapter;
 import com.antran.expressfootball.main.menu.MenuController;
 import com.antran.expressfootball.main.menu.MenuControllerListener;
 import com.antran.expressfootball.main.menu.MenuView;
+import com.antran.expressfootball.matchesfragment.FavoriteTeamMatchFragment;
 import com.antran.expressfootball.matchesfragment.LastedHighlightFragment;
 import com.antran.expressfootball.matchesfragment.LeagueFragment;
+import com.antran.expressfootball.rankingfragment.RankingFragment;
 import com.antran.expressfootball.util.Key;
 
 /**
@@ -30,14 +46,10 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
     //Defining Variables
     private Activity activity;
     private Context context;
-
+//
     private LoadingController loadingController;
     private MainController mainController;
     private MenuController menuController;
-
-
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,24 +99,44 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
 
     @Override
     public void onClickLastedHighLight() {
-        Toast.makeText(context, "Lasted highlight", Toast.LENGTH_SHORT).show();
         mainController.setTitle(getString(R.string.menu_latest_highlight));
         LastedHighlightFragment fragment = new LastedHighlightFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment);
         fragmentTransaction.commit();
     }
 
     @Override
     public void onClickMyFavorite() {
-        Toast.makeText(getApplicationContext(), "My favorite", Toast.LENGTH_SHORT).show();
         mainController.setTitle(getString(R.string.menu_my_favorite));
+        String teamJson = CachingManager.getInstance(context).getStringCached(CachingContant.FAVORITE_TEAM, "");
+        if (teamJson == null || teamJson.compareTo("") == 0) {
+            FavoriteFragment fragment = new FavoriteFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame, fragment);
+            fragmentTransaction.commit();
+        } else {
+            FavoriteTeamMatchFragment fragment = new FavoriteTeamMatchFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    public void openFavoriteTeamsSelect() {
+        FavoriteFragment fragment = new FavoriteFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
     public void onClickRankingTable() {
-        Toast.makeText(getApplicationContext(), "Ranking table", Toast.LENGTH_SHORT).show();
         mainController.setTitle(getString(R.string.menu_ranking_table));
+        RankingFragment fragment = new RankingFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -135,4 +167,5 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
             }
         };
     }
+
 }

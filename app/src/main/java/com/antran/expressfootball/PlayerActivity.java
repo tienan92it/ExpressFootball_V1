@@ -19,6 +19,7 @@ import com.antran.expressfootball.util.video.EventLogger;
 import com.antran.expressfootball.util.video.SmoothStreamingTestMediaDrmCallback;
 import com.antran.expressfootball.util.video.WidevineTestMediaDrmCallback;
 import com.antran.expressfootball.video.VideoControllerView;
+import com.antran.expressfootball.widget.TextViewWithFont;
 import com.google.android.exoplayer.AspectRatioFrameLayout;
 import com.google.android.exoplayer.ExoPlaybackException;
 import com.google.android.exoplayer.ExoPlayer;
@@ -51,6 +52,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -68,6 +70,8 @@ import android.view.View.OnTouchListener;
 import android.view.accessibility.CaptioningManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -93,6 +97,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     public static final String CONTENT_ID_EXTRA = "content_id";
     public static final String CONTENT_TYPE_EXTRA = "content_type";
     public static final String PROVIDER_EXTRA = "provider";
+    public static final String TITLE_EXTRA = "title";
     public static final int TYPE_DASH = 0;
     public static final int TYPE_SS = 1;
     public static final int TYPE_HLS = 2;
@@ -130,6 +135,9 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     private Button retryButton;
     private ProgressBar progressBar;
     private TextView retry;
+    private LinearLayout titleContent;
+    private ImageView back;
+    private TextViewWithFont title;
 
     private DemoPlayer player;
     private DebugTextViewHelper debugViewHelper;
@@ -199,6 +207,17 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
         retry = (TextView) findViewById(R.id.retry);
         retry.setOnClickListener(this);
 
+        titleContent = (LinearLayout) findViewById(R.id.video_info);
+        back = (ImageView) findViewById(R.id.back);
+        title = (TextViewWithFont) findViewById(R.id.title);
+        back.setColorFilter(Color.WHITE);
+        back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         CookieHandler currentHandler = CookieHandler.getDefault();
         if (currentHandler != defaultCookieManager) {
             CookieHandler.setDefault(defaultCookieManager);
@@ -224,6 +243,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
                 inferContentType(contentUri, intent.getStringExtra(CONTENT_EXT_EXTRA)));
         contentId = intent.getStringExtra(CONTENT_ID_EXTRA);
         provider = intent.getStringExtra(PROVIDER_EXTRA);
+        title.setText(intent.getStringExtra(TITLE_EXTRA));
         configureSubtitleView();
         if (player == null) {
             if (!maybeRequestPermission()) {
@@ -611,6 +631,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     private void toggleControlsVisibility() {
         if (mediaController.isShowing()) {
             mediaController.hide();
+            titleContent.setVisibility(View.GONE);
             debugRootView.setVisibility(View.GONE);
         } else {
             showControls();
@@ -619,6 +640,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 
     private void showControls() {
         mediaController.show(0);
+        titleContent.setVisibility(View.VISIBLE);
         debugRootView.setVisibility(View.GONE);
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:fontify="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -14,11 +15,13 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
         app:cardBackgroundColor="@color/card_item_background"
-        app:cardElevation="2dp">
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:minHeight="50dp"
             android:orientation="horizontal"
             android:weightSum="12">
@@ -27,17 +30,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:clipToPadding="false"
                 android:paddingRight="10dp">
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/thumbnail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:background="@drawable/border_thumbnail"
-                    android:elevation="20dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/video_placeholder" />
+                    android:clipToPadding="false"
+                    android:elevation="8dp"
+                    android:outlineProvider="bounds"
+                    android:scaleType="fitCenter" />
 
                 <com.antran.expressfootball.widget.TextViewWithFont
                     android:id="@+id/duration"
@@ -58,8 +63,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
                 android:layout_gravity="center"
+                android:layout_weight="5"
                 android:background="@android:color/transparent"
                 android:padding="@dimen/content_detail_padding">
 
@@ -67,11 +72,6 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:scrollHorizontally="true"
-                    android:focusable="true"
                     android:layout_above="@+id/date"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
@@ -114,78 +114,6 @@
                     fontify:font="@string/font_roboto_light" />
 
             </RelativeLayout>
-
-            <!--<LinearLayout
-                android:id="@+id/fc_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/date"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <LinearLayout
-                    android:id="@+id/home_fc"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/home_logo"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_gravity="center_horizontal"
-                        android:adjustViewBounds="true"
-                        android:layerType="software"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/arsenal_fc_logo" />
-
-                    <TextView
-                        android:id="@+id/home_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:text="1"
-                        android:textColor="@android:color/white"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/away_fc"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@+id/thumbnail"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/away_logo"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_gravity="center_horizontal"
-                        android:adjustViewBounds="true"
-                        android:layerType="software"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/barcelona_fc_logo" />
-
-                    <TextView
-                        android:id="@+id/away_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:text="2"
-                        android:textColor="@android:color/white"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </LinearLayout>-->
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

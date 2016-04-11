@@ -1,8 +1,6 @@
 package com.antran.expressfootball.matchesfragment;
 
 import android.content.Context;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,16 +16,6 @@ import com.antran.expressfootball.matchesfragment.matches.MatchesView;
 import com.antran.expressfootball.loading.LoadingController;
 import com.antran.expressfootball.loading.LoadingControllerListener;
 import com.antran.expressfootball.loading.LoadingView;
-import com.antran.expressfootball.util.svg.SvgDecoder;
-import com.antran.expressfootball.util.svg.SvgDrawableTranscoder;
-import com.antran.expressfootball.util.svg.SvgSoftwareLayerSetter;
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
-
-import java.io.InputStream;
 
 /**
  * Created by AnTran on 05/12/2015.
@@ -42,7 +30,7 @@ public class LastedHighlightFragment extends Fragment implements LoadingControll
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this.getContext();
+        context = this.getActivity();
     }
 
     @Nullable
@@ -53,21 +41,8 @@ public class LastedHighlightFragment extends Fragment implements LoadingControll
         LoadingView loadingView = new LoadingView(context);
         loadingController = new LoadingController(loadingView, this);
 
-        GenericRequestBuilder requestBuilder = Glide.with(getActivity())
-                .using(Glide.buildStreamModelLoader(Uri.class, getActivity()), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
-                .decoder(new SvgDecoder())
-                .placeholder(R.drawable.ic_ball)
-                .error(R.drawable.ic_ball)
-                .animate(android.R.anim.fade_in)
-                .listener(new SvgSoftwareLayerSetter<Uri>());
-
         MatchesView matchesView = new MatchesView((SwipeRefreshLayout) rootview.findViewById(R.id.root_view));
-        matchesController = new MatchesController(context, matchesView, requestBuilder, this);
+        matchesController = new MatchesController(context, matchesView, this);
         matchesView.setListener(matchesController);
         matchesView.setAdapter(matchesController);
 
