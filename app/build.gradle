@@ -5,15 +5,16 @@ android {
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId "com.antran.expressfootball"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 23
-        versionCode 4
+        versionCode 9
         versionName "2.0"
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "89915c5b2246435f9aee2c594408aa22"]
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -1,23 +1,13 @@
 package com.antran.expressfootball;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.antran.expressfootball.caching.CachingContant;
 import com.antran.expressfootball.caching.CachingManager;
@@ -28,7 +18,6 @@ import com.antran.expressfootball.loading.LoadingView;
 import com.antran.expressfootball.main.MainController;
 import com.antran.expressfootball.main.MainControllerListener;
 import com.antran.expressfootball.main.MainView;
-import com.antran.expressfootball.main.menu.MenuAdapter;
 import com.antran.expressfootball.main.menu.MenuController;
 import com.antran.expressfootball.main.menu.MenuControllerListener;
 import com.antran.expressfootball.main.menu.MenuView;
@@ -46,7 +35,7 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
     //Defining Variables
     private Activity activity;
     private Context context;
-//
+    //
     private LoadingController loadingController;
     private MainController mainController;
     private MenuController menuController;
@@ -69,7 +58,9 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
         menuController = new MenuController(context, menuView, this);
         menuView.setListener(menuController);
         menuController.loadLeagueMenuItems();
-        onClickLastedHighLight();
+
+        if (savedInstanceState == null)
+            onClickLastedHighLight();
     }
 
     @Override
@@ -80,6 +71,14 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (menuController.isShown())
+            mainController.closeDrawers();
+        else
+            super.onBackPressed();
     }
 
     @Override
@@ -124,6 +123,7 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
     }
 
     public void openFavoriteTeamsSelect() {
+        mainController.setTitle(getString(R.string.select_your_team));
         FavoriteFragment fragment = new FavoriteFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment);
@@ -168,4 +168,14 @@ public class MainScreen extends FragmentActivity implements LoadingControllerLis
         };
     }
 
+    public void reset() {
+        menuController.loadLeagueMenuItems();
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        mainController.syncState();
+    }
 }

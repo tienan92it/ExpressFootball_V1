@@ -6,6 +6,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -38,7 +39,7 @@ public class RowView {
     }
 
     private View container;
-    private CardView cardView;
+    private LinearLayout cardView;
     private TextViewWithFont number;
     private NetworkImageView clubLogoPNG;
     private TextViewWithFont clubName;
@@ -50,7 +51,7 @@ public class RowView {
 
     public RowView(ViewGroup parent){
         container = LayoutInflater.from(parent.getContext()).inflate(LAYOUT_ITEM, parent, false);
-        cardView = (CardView) container.findViewById(R.id.cardview);
+        cardView = (LinearLayout) container.findViewById(R.id.cardview);
         number = (TextViewWithFont) container.findViewById(R.id.number);
         clubLogoPNG = (NetworkImageView) container.findViewById(R.id.club_logo_png);
         clubName = (TextViewWithFont) container.findViewById(R.id.club_name);

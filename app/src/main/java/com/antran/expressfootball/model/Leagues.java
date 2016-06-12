@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class Leagues {
 
+    public static final int CHAMPION_LEAGUE_ID = 405;
+
     private static Leagues mInstance;
     private static Context mCtx;
     private List<League> leagues;
@@ -37,6 +39,42 @@ public class Leagues {
             leagues = new ArrayList<League>();
         }
         return leagues;
+    }
+
+    public List<League> getNationalLeagues(){
+        List<League> nationalLeague = new ArrayList<League>();
+        if (leagues != null){
+            for (int i = 0; i < leagues.size(); i++) {
+                if (leagues.get(i).getLeagueId() != CHAMPION_LEAGUE_ID) {
+                    nationalLeague.add(leagues.get(i));
+                }
+            }
+        }
+        return  nationalLeague;
+    }
+
+    public List<League> getShowRankingLeagues(){
+        List<League> showRankingLeague = new ArrayList<League>();
+        if (leagues != null){
+            for (int i = 0; i < leagues.size(); i++) {
+                if (leagues.get(i).getShowRanking() == 1) {
+                    showRankingLeague.add(leagues.get(i));
+                }
+            }
+        }
+        return  showRankingLeague;
+    }
+
+    public List<League> getShowFavoriteLeagues(){
+        List<League> showFavoriteLeague = new ArrayList<League>();
+        if (leagues != null){
+            for (int i = 0; i < leagues.size(); i++) {
+                if (leagues.get(i).getShowFavorite() == 1) {
+                    showFavoriteLeague.add(leagues.get(i));
+                }
+            }
+        }
+        return  showFavoriteLeague;
     }
 
     public void importLeagues(JSONArray jsonArray) throws JSONException {

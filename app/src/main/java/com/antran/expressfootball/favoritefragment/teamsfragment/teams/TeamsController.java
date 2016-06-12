@@ -37,12 +37,20 @@ public class TeamsController extends RecyclerView.Adapter<TeamController> implem
     private TeamsView teamsView;
     private TeamsControllerListener listener;
     private List<Team> teams;
+    private Team currentFavorite;
+    private int favoriteTeamIndex = -1;
 
     public TeamsController(Context context, TeamsView teamsView, TeamsControllerListener listener) {
         this.context = context;
         this.teamsView = teamsView;
         this.listener = listener;
         this.teams = new ArrayList<Team>();
+        currentFavorite = new Team();
+        String teamJson = CachingManager.getInstance(context).getStringCached(CachingContant.FAVORITE_TEAM, "");
+        if (teamJson != null && teamJson.compareTo("") != 0) {
+            Gson gson = new Gson();
+            currentFavorite = gson.fromJson(teamJson, Team.class);
+        }
     }
 
     @Override
@@ -58,7 +66,11 @@ public class TeamsController extends RecyclerView.Adapter<TeamController> implem
 
     @Override
     public void onBindViewHolder(TeamController holder, int position) {
-        holder.bindData(teams.get(position));
+        if (hasFavoriteTeam()) {
+            if (position == favoriteTeamIndex) {
+                holder.bindData(teams.get(position), true);
+            } else holder.bindData(teams.get(position), false);
+        } else holder.bindData(teams.get(position), false);
     }
 
     @Override
@@ -77,12 +89,18 @@ public class TeamsController extends RecyclerView.Adapter<TeamController> implem
                             JSONObject teamData = response.getJSONObject(i);
                             Team team = Team.parse(teamData);
                             teams.add(team);
+                            if (hasFavoriteTeam()) {
+                                if (team.getTeamId() == currentFavorite.getTeamId())
+                                    favoriteTeamIndex = i;
+                            }
                             notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     notifyDataSetChanged();
+                    if (favoriteTeamIndex != -1)
+                        teamsView.scrollToItem(favoriteTeamIndex);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -100,5 +118,9 @@ public class TeamsController extends RecyclerView.Adapter<TeamController> implem
         Log.d("team info", gson.toJson(team));
         CachingManager.getInstance(context).cachesString(CachingContant.FAVORITE_TEAM, gson.toJson(team));
         listener.teamSelected();
+    }
+
+    private boolean hasFavoriteTeam() {
+        return currentFavorite != null && currentFavorite.getTeamId() != -1;
     }
 }

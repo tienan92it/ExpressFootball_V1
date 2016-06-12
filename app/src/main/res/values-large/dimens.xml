@@ -1,0 +1,45 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="design_navigation_padding_top_default" tools:override="true">0dp</dimen>
+    <dimen name="design_navigation_separator_vertical_padding" tools:override="true">0dp</dimen>
+    <dimen name="design_navigation_padding_bottom" tools:override="true">0dp</dimen>
+
+    <!--header menu-->
+    <dimen name="header_menu_margin_top">66dp</dimen>
+    <dimen name="header_menu_margin_bottom">37dp</dimen>
+    <dimen name="header_menu_logo_width">150dp</dimen>
+    <dimen name="logo_text_distance">22dp</dimen>
+    <dimen name="header_menu_text_size">33sp</dimen>
+    <dimen name="header_menu_divider_height">3dp</dimen>
+    
+    <!--splash screen-->
+    <dimen name="splash_text_size">31sp</dimen>
+
+    <!--list matches screen-->
+    <dimen name="title_match_size">27sp</dimen>
+    <dimen name="detail_match_size">22sp</dimen>
+    <dimen name="date_match_size">18.07sp</dimen>
+    <dimen name="time_match_size">19.58sp</dimen>
+    <dimen name="distance_cards">4dp</dimen>
+    <dimen name="content_detail_padding">7dp</dimen>
+
+    <!--ranking table-->
+    <dimen name="table_header_text_size">19.3sp</dimen>
+    <dimen name="row_height">64dp</dimen>
+    <dimen name="table_text_size">24.5sp</dimen>
+    <dimen name="table_text_point">25.8sp</dimen>
+    <dimen name="distance_rows">3dp</dimen>
+    <dimen name="ranking_logo_team_width">75dp</dimen>
+
+    <!--favorite team item-->
+    <dimen name="favorite_team_text_size">27.2sp</dimen>
+    <dimen name="logo_team_margin_left">37dp</dimen>
+    <dimen name="logo_team_margin_right">22dp</dimen>
+    <dimen name="logo_team_margin">15dp</dimen>
+    <dimen name="fab_width">84dp</dimen>
+    <dimen name="fab_padding">12dp</dimen>
+
+</resources>

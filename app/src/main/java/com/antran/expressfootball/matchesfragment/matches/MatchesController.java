@@ -126,7 +126,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
 
     public void firstLoadData(int leagueId) {
         this.leagueId = leagueId;
-        listener.onLoading();
+//        listener.onLoading();
+        matchesView.startRefresh();
         matches.clear();
         if (leagueId != 0) {
             String url = Global.getURLMatchesByLeagueIdWith(leagueId, 1, LIMIT, "date_match", "desc");
@@ -135,7 +136,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            listener.onLoaded();
+//                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
                             Log.e("Response: ", response.toString());
                             for (int i = 0; i < response.length(); i++) {
                                 try {
@@ -153,8 +155,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            matchesView.setRefreshComplete();
+                            listener.lostConnection();
                         }
                     });
             MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
@@ -165,7 +167,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            listener.onLoaded();
+//                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
                             Log.e("Response: ", response.toString());
                             for (int i = 0; i < response.length(); i++) {
                                 try {
@@ -183,8 +186,9 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+//                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
+                            listener.lostConnection();
                         }
                     });
             MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
@@ -192,85 +196,6 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
 
     }
 
-//    public void firstLoadData(int leagueId) {
-//        this.leagueId = leagueId;
-//        listener.onLoading();
-//        matches.clear();
-//        if (leagueId != 0) {
-//            MatchDataHelper.getLimitMatchesFromLeague(leagueId, LIMIT, new FindCallback<ParseObject>() {
-//                @Override
-//                public void done(List<ParseObject> objects, ParseException e) {
-//                    if (e == null) {
-//                        for (ParseObject match : objects) {
-//                            matches.add(MatchInfo.parse(match));
-//                            MatchDataHelper.getMatchFromId(match.getInt("match_id"), new FunctionCallback<JSONObject>() {
-//                                @Override
-//                                public void done(JSONObject object, ParseException e) {
-//                                    try {
-//                                        //JSONObject jsMatch = new JSONObject(object.get("league"));
-//                                        MatchInfo tmpMatch = MatchInfo.parse(object);
-//                                        if (matches.size() > 0) {
-//                                            for (int i = 0; i < matches.size(); i++) {
-//                                                if (matches.get(i).getMatchId() == tmpMatch.getMatchId())
-//                                                    matches.set(i, tmpMatch);
-//                                            }
-//                                        } else
-//                                            matches.add(tmpMatch);
-//                                    } catch (JSONException e1) {
-//                                        e1.printStackTrace();
-//                                    }
-//                                    notifyDataSetChanged();
-//                                }
-//                            });
-//                            // updateItemInBackground(MatchInfo.parse(match));
-//                        }
-//                        notifyDataSetChanged();
-//                    } else {
-//                        e.printStackTrace();
-//                        Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                    }
-//                    listener.onLoaded();
-//                }
-//            });
-//        } else {
-//            MatchDataHelper.getLimitMatches(LIMIT, new FindCallback<ParseObject>() {
-//                @Override
-//                public void done(List<ParseObject> objects, ParseException e) {
-//                    if (e == null) {
-//                        for (ParseObject match : objects) {
-//                            matches.add(MatchInfo.parse(match));
-//                            MatchDataHelper.getMatchFromId(match.getInt("match_id"), new FunctionCallback<JSONObject>() {
-//                                @Override
-//                                public void done(JSONObject object, ParseException e) {
-//                                    try {
-//                                        //JSONObject jsMatch = new JSONObject(object.get("league"));
-//                                        MatchInfo tmpMatch = MatchInfo.parse(object);
-//                                        if (matches.size() > 0) {
-//                                            for (int i = 0; i < matches.size(); i++) {
-//                                                if (matches.get(i).getMatchId() == tmpMatch.getMatchId())
-//                                                    matches.set(i, tmpMatch);
-//                                            }
-//                                        } else
-//                                            matches.add(tmpMatch);
-//                                    } catch (JSONException e1) {
-//                                        e1.printStackTrace();
-//                                    }
-//                                    notifyDataSetChanged();
-//                                }
-//                            });
-//                            //matches.add(MatchInfo.parse(match));
-//                            //updateItemInBackground(MatchInfo.parse(match));
-//                        }
-//                        notifyDataSetChanged();
-//                    } else {
-//                        e.printStackTrace();
-//                        Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                    }
-//                    listener.onLoaded();
-//                }
-//            });
-//        }
-//    }
 
     @Override
     public void onRefreshListener() {
@@ -281,7 +206,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            listener.onLoaded();
+//                            listener.onLoaded();
+//                            matchesView.setRefreshComplete();
                             Log.e("Response: ", response.toString());
                             matches.clear();
                             for (int i = 0; i < response.length(); i++) {
@@ -301,8 +227,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+//                            listener.onLoaded();
+                            listener.lostConnection();
                             matchesView.setRefreshComplete();
                         }
                     });
@@ -314,7 +240,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            listener.onLoaded();
+//                            listener.onLoaded();
+//                            matchesView.setRefreshComplete();
                             Log.e("Response: ", response.toString());
                             matches.clear();
                             for (int i = 0; i < response.length(); i++) {
@@ -334,8 +261,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Some things went wrong", Toast.LENGTH_SHORT).show();
+//                            listener.onLoaded();
+                            listener.lostConnection();
                             matchesView.setRefreshComplete();
                         }
                     });
@@ -347,6 +274,7 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
     @Override
     public void loadMore(int current_page) {
         //matchesView.showProgressLoadMore();
+        matchesView.startRefresh();
         if (leagueId != 0) {
             String url = Global.getURLMatchesByLeagueIdWith(leagueId, current_page, LIMIT, "date_match", "desc");
             Log.e("URL", url);
@@ -354,7 +282,7 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
                             Log.e("Response: ", response.toString());
                             for (int i = 0; i < response.length(); i++) {
                                 try {
@@ -372,8 +300,8 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Some things went wrong", Toast.LENGTH_SHORT).show();
+                            matchesView.setRefreshComplete();
+                            Toast.makeText(context, "Unable to connect to server, please check your internet connection", Toast.LENGTH_SHORT).show();
                         }
                     });
             MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
@@ -384,7 +312,7 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
                             Log.e("Response: ", response.toString());
                             for (int i = 0; i < response.length(); i++) {
                                 try {
@@ -402,12 +330,20 @@ public class MatchesController extends RecyclerView.Adapter<MatchItemController>
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Some things went wrong", Toast.LENGTH_SHORT).show();
+//                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
+                            Toast.makeText(context, "Unable to connect to server, please check your internet connection", Toast.LENGTH_SHORT).show();
                         }
                     });
             MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
         }
     }
 
+    public void hide() {
+        matchesView.hideView();
+    }
+
+    public void show() {
+        matchesView.showView();
+    }
 }

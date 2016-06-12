@@ -3,8 +3,10 @@ package com.antran.expressfootball.favoritefragment.teamsfragment.team;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.antran.expressfootball.caching.CachingContant;
 import com.antran.expressfootball.caching.CachingManager;
 import com.antran.expressfootball.model.Team;
+import com.google.gson.Gson;
 
 /**
  * Created by AnTran on 12/03/2016.
@@ -22,9 +24,12 @@ public class TeamController extends RecyclerView.ViewHolder implements TeamViewL
         team = new Team();
     }
 
-    public void bindData(Team team) {
+    public void bindData(Team team, boolean isFavorite) {
         this.team = team;
         teamView.bindData(team);
+        if (isFavorite)
+            teamView.hoverTeam();
+        else teamView.noHoverTeam();
     }
 
     @Override

@@ -26,4 +26,8 @@ public class TeamsView {
     public void setAdapter(RecyclerView.Adapter<TeamController> adapter) {
         recyclerView.setAdapter(adapter);
     }
+
+    public void scrollToItem(int position){
+        linearLayoutManager.scrollToPositionWithOffset(position, 50);
+    }
 }

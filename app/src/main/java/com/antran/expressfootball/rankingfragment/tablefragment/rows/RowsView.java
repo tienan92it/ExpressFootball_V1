@@ -2,6 +2,7 @@ package com.antran.expressfootball.rankingfragment.tablefragment.rows;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.antran.expressfootball.rankingfragment.tablefragment.RowInfo;
 import com.antran.expressfootball.rankingfragment.tablefragment.row.RowController;
@@ -26,4 +27,12 @@ public class RowsView {
     }
 
     public void setListener(RowsViewListener ltn){}
+
+    public void showView() {
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideView() {
+        recyclerView.setVisibility(View.GONE);
+    }
 }

@@ -1,8 +1,6 @@
 package com.antran.expressfootball.matchesfragment;
 
 import android.content.Context;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +8,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+import com.antran.expressfootball.MainScreen;
 import com.antran.expressfootball.R;
 import com.antran.expressfootball.loading.LoadingController;
 import com.antran.expressfootball.loading.LoadingControllerListener;
@@ -18,36 +18,33 @@ import com.antran.expressfootball.loading.LoadingView;
 import com.antran.expressfootball.matchesfragment.matches.MatchesController;
 import com.antran.expressfootball.matchesfragment.matches.MatchesControllerListener;
 import com.antran.expressfootball.matchesfragment.matches.MatchesView;
+import com.antran.expressfootball.retryfragment.RetryController;
+import com.antran.expressfootball.retryfragment.RetryControllerListener;
+import com.antran.expressfootball.retryfragment.RetryView;
 import com.antran.expressfootball.util.Key;
-import com.antran.expressfootball.util.svg.SvgDecoder;
-import com.antran.expressfootball.util.svg.SvgDrawableTranscoder;
-import com.antran.expressfootball.util.svg.SvgSoftwareLayerSetter;
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
-
-import java.io.InputStream;
 
 /**
  * Created by Appable on 1/10/2016.
  */
-public class LeagueFragment extends Fragment implements LoadingControllerListener, MatchesControllerListener {
+public class LeagueFragment extends Fragment implements LoadingControllerListener, RetryControllerListener, MatchesControllerListener {
+
+    private MainScreen activity;
 
     private View rootview;
     private Context context;
     private int leagueId = 0;
 
     private LoadingController loadingController;
+    private RetryController retryController;
     private MatchesController matchesController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this.getContext();
+        activity = (MainScreen) getActivity();
         Bundle bundle = getArguments();
-        if (bundle != null){
+        if (bundle != null) {
             leagueId = bundle.getInt(Key.LEAGUE_ID);
         }
     }
@@ -60,7 +57,11 @@ public class LeagueFragment extends Fragment implements LoadingControllerListene
         LoadingView loadingView = new LoadingView(context);
         loadingController = new LoadingController(loadingView, this);
 
-        MatchesView matchesView = new MatchesView((SwipeRefreshLayout) rootview.findViewById(R.id.root_view));
+        RetryView retryView = new RetryView((RelativeLayout) rootview.findViewById(R.id.retry_content));
+        retryController = new RetryController(context, retryView, this);
+        retryView.setListener(retryController);
+
+        MatchesView matchesView = new MatchesView((SwipeRefreshLayout) rootview.findViewById(R.id.swipe_refresh));
         matchesController = new MatchesController(context, matchesView, this);
         matchesView.setListener(matchesController);
         matchesView.setAdapter(matchesController);
@@ -85,6 +86,12 @@ public class LeagueFragment extends Fragment implements LoadingControllerListene
     }
 
     @Override
+    public void lostConnection() {
+        retryController.show();
+        matchesController.hide();
+    }
+
+    @Override
     public void onShow() {
 
     }
@@ -92,5 +99,12 @@ public class LeagueFragment extends Fragment implements LoadingControllerListene
     @Override
     public void onHide() {
 
+    }
+
+    @Override
+    public void onRetry() {
+        retryController.hide();
+        matchesController.show();
+        matchesController.firstLoadData(leagueId);
     }
 }

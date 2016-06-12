@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:fontify="http://schemas.android.com/apk/res-auto"
@@ -9,13 +9,14 @@
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
     android:layout_marginTop="0dp"
-    app:cardBackgroundColor="@android:color/transparent"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="0dp">
+    android:background="@android:color/transparent">
 
     <LinearLayout
+        android:id="@+id/content_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginRight="-2dp"
         android:background="@color/card_item_background"
         android:baselineAligned="false"
         android:orientation="horizontal"
@@ -37,7 +38,7 @@
                 android:layout_marginRight="@dimen/logo_team_margin_right"
                 android:layout_marginTop="@dimen/logo_team_margin"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"/>
 
         </RelativeLayout>
 
@@ -71,4 +72,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</RelativeLayout>

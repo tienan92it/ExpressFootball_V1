@@ -21,6 +21,25 @@ public class League {
     private String logo;
     private int status;
 
+    public int getShowRanking() {
+        return showRanking;
+    }
+
+    public void setShowRanking(int showRanking) {
+        this.showRanking = showRanking;
+    }
+
+    public int getShowFavorite() {
+        return showFavorite;
+    }
+
+    public void setShowFavorite(int showFavorite) {
+        this.showFavorite = showFavorite;
+    }
+
+    private int showRanking;
+    private int showFavorite;
+
     public int getPriority() {
         return priority;
     }
@@ -68,6 +87,8 @@ public class League {
         league.setPriority(object.getInt("order"));
         league.setStatus(object.getInt("status"));
         league.setLogo(object.getString("thumbnail"));
+        league.setShowRanking(object.getInt("show_ranking"));
+        league.setShowFavorite(object.getInt("show_favorite"));
         return league;
     }
 
@@ -78,6 +99,8 @@ public class League {
         league.setPriority(object.getInt("order"));
         league.setStatus(object.getInt("status"));
         league.setLogo(object.getString("thumbnail"));
+        league.setShowRanking(object.getInt("show_ranking"));
+        league.setShowFavorite(object.getInt("show_favorite"));
         return league;
     }
 }

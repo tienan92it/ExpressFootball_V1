@@ -26,4 +26,8 @@ public class MainController implements MainViewListener{
     public void setTitle(String title) {
         mainView.setTitle(title);
     }
+
+    public void syncState(){
+        mainView.syncState();
+    }
 }

@@ -116,8 +116,9 @@ public class MatchesByTeamController extends RecyclerView.Adapter<MatchItemContr
 
     public void firstLoadData(Team favoriteTeam) {
         team = favoriteTeam;
-        listener.onLoading();
+//        listener.onLoading();
         matches.clear();
+        matchesView.startRefresh();
         if (team != null) {
             Map<String, String> params = new HashMap<String, String>();
             params.put("teamName", team.getTeamName());
@@ -129,7 +130,8 @@ public class MatchesByTeamController extends RecyclerView.Adapter<MatchItemContr
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            listener.onLoaded();
+//                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
                             for (int i = 0; i < response.length(); i++) {
                                 try {
                                     JSONObject jsonObject = response.getJSONObject(i);
@@ -146,8 +148,9 @@ public class MatchesByTeamController extends RecyclerView.Adapter<MatchItemContr
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Unable to connect to server, try again later", Toast.LENGTH_SHORT).show();
+//                            listener.onLoaded();
+                            matchesView.setRefreshComplete();
+                            listener.lostConnection();
                         }
                     });
             MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
@@ -190,8 +193,8 @@ public class MatchesByTeamController extends RecyclerView.Adapter<MatchItemContr
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            listener.onLoaded();
-                            Toast.makeText(context, "Unable to connect to server, try again later", Toast.LENGTH_SHORT).show();
+//                            listener.onLoaded();
+                            listener.lostConnection();
                             matchesView.setRefreshComplete();
                         }
                     });
@@ -235,7 +238,7 @@ public class MatchesByTeamController extends RecyclerView.Adapter<MatchItemContr
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             listener.onLoaded();
-                            Toast.makeText(context, "Unable to connect to server, try again later", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Unable to connect to server, please check your internet connection", Toast.LENGTH_SHORT).show();
                         }
                     });
             MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
@@ -244,4 +247,11 @@ public class MatchesByTeamController extends RecyclerView.Adapter<MatchItemContr
         }
     }
 
+    public void hide() {
+        matchesView.hideView();
+    }
+
+    public void show() {
+        matchesView.showView();
+    }
 }

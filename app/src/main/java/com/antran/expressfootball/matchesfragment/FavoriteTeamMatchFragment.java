@@ -1,19 +1,16 @@
 package com.antran.expressfootball.matchesfragment;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -26,28 +23,19 @@ import com.antran.expressfootball.loading.LoadingController;
 import com.antran.expressfootball.loading.LoadingControllerListener;
 import com.antran.expressfootball.loading.LoadingView;
 import com.antran.expressfootball.matchesfragment.matches.MatchesByTeamController;
-import com.antran.expressfootball.matchesfragment.matches.MatchesController;
 import com.antran.expressfootball.matchesfragment.matches.MatchesControllerListener;
 import com.antran.expressfootball.matchesfragment.matches.MatchesView;
 import com.antran.expressfootball.model.Team;
 import com.antran.expressfootball.networkrequest.MySingleton;
-import com.antran.expressfootball.util.Key;
-import com.antran.expressfootball.util.svg.SvgDecoder;
-import com.antran.expressfootball.util.svg.SvgDrawableTranscoder;
-import com.antran.expressfootball.util.svg.SvgSoftwareLayerSetter;
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
+import com.antran.expressfootball.retryfragment.RetryController;
+import com.antran.expressfootball.retryfragment.RetryControllerListener;
+import com.antran.expressfootball.retryfragment.RetryView;
 import com.google.gson.Gson;
-
-import java.io.InputStream;
 
 /**
  * Created by AnTran on 26/03/2016.
  */
-public class FavoriteTeamMatchFragment extends Fragment implements LoadingControllerListener, MatchesControllerListener {
+public class FavoriteTeamMatchFragment extends Fragment implements LoadingControllerListener, RetryControllerListener, MatchesControllerListener {
 
     private View rootview;
     private Context context;
@@ -55,6 +43,7 @@ public class FavoriteTeamMatchFragment extends Fragment implements LoadingContro
     private ImageView fab;
 
     private LoadingController loadingController;
+    private RetryController retryController;
     private MatchesByTeamController matchesController;
     private Team favoriteTeam;
 
@@ -77,6 +66,8 @@ public class FavoriteTeamMatchFragment extends Fragment implements LoadingContro
         rootview = inflater.inflate(R.layout.list_matches_favorite, container, false);
 
         fab = (ImageView) rootview.findViewById(R.id.fab);
+//        fab.setColorFilter(ContextCompat.getColor(context, R.color.text_menu_color));
+//        fab.setImageResource(R.drawable.ic_stars_black_24dp);
         imageLoader.get(favoriteTeam.getCrestUrl(), new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -85,7 +76,8 @@ public class FavoriteTeamMatchFragment extends Fragment implements LoadingContro
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                error.printStackTrace();
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +91,11 @@ public class FavoriteTeamMatchFragment extends Fragment implements LoadingContro
         LoadingView loadingView = new LoadingView(context);
         loadingController = new LoadingController(loadingView, this);
 
-        MatchesView matchesView = new MatchesView((SwipeRefreshLayout) rootview.findViewById(R.id.root_view));
+        RetryView retryView = new RetryView((RelativeLayout) rootview.findViewById(R.id.retry_content));
+        retryController = new RetryController(context, retryView, this);
+        retryView.setListener(retryController);
+
+        MatchesView matchesView = new MatchesView((SwipeRefreshLayout) rootview.findViewById(R.id.swipe_refresh));
         matchesController = new MatchesByTeamController(context, matchesView, this);
         matchesView.setListener(matchesController);
         matchesView.setAdapter(matchesController);
@@ -124,6 +120,12 @@ public class FavoriteTeamMatchFragment extends Fragment implements LoadingContro
     }
 
     @Override
+    public void lostConnection() {
+        retryController.show();
+        matchesController.hide();
+    }
+
+    @Override
     public void onShow() {
 
     }
@@ -131,5 +133,13 @@ public class FavoriteTeamMatchFragment extends Fragment implements LoadingContro
     @Override
     public void onHide() {
 
+    }
+
+    @Override
+    public void onRetry() {
+        retryController.hide();
+        matchesController.show();
+        activity.reset();
+        matchesController.firstLoadData(favoriteTeam);
     }
 }

@@ -1,125 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:fontify="http://schemas.android.com/apk/res-auto"
-    xmlns:svgimageview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/distance_rows"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_marginTop="0dp">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:id="@+id/cardview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/distance_rows"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:cardBackgroundColor="@color/card_item_background"
-        app:cardElevation="2dp">
+        android:layout_height="@dimen/row_height"
+        android:background="@color/card_item_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/number_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:paddingLeft="-2dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/background_num" />
+
+            <com.antran.expressfootball.widget.TextViewWithFont
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/number_background"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/number_background"
+                android:gravity="center"
+                android:text="11"
+                android:textColor="@color/text_menu_color"
+                android:textSize="@dimen/table_text_size"
+                fontify:font="@string/font_roboto_light" />
+
+        </RelativeLayout>
+
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/row_height"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:id="@+id/club_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="0dp"
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/club_logo_png"
+                android:layout_width="@dimen/ranking_logo_team_width"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/number_background"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="-2dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/background_num" />
-
-                <com.antran.expressfootball.widget.TextViewWithFont
-                    android:id="@+id/number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignLeft="@+id/number_background"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/number_background"
-                    android:gravity="center"
-                    android:text="11"
-                    android:textColor="@color/text_menu_color"
-                    android:textSize="@dimen/table_text_size"
-                    fontify:font="@string/font_roboto_light"/>
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:id="@+id/club_content"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <com.android.volley.toolbox.NetworkImageView
-                    android:id="@+id/club_logo_png"
-                    android:layout_width="@dimen/ranking_logo_team_width"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:padding="7dp"
-                    android:scaleType="fitCenter"
-                    android:visibility="visible"/>
-
-                <com.antran.expressfootball.widget.TextViewWithFont
-                    android:id="@+id/club_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:gravity="left"
-                    android:text="Arsenal"
-                    android:textColor="@color/text_menu_color"
-                    android:textSize="@dimen/table_text_size"
-                    fontify:font="@string/font_roboto_light" />
-
-            </LinearLayout>
+                android:adjustViewBounds="true"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:visibility="visible" />
 
             <com.antran.expressfootball.widget.TextViewWithFont
-                android:id="@+id/played_game"
-                android:layout_width="0dp"
+                android:id="@+id/club_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="24"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Arsenal"
                 android:textColor="@color/text_menu_color"
                 android:textSize="@dimen/table_text_size"
-                fontify:font="@string/font_roboto_light" />
-
-            <com.antran.expressfootball.widget.TextViewWithFont
-                android:id="@+id/goal_diff"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="54"
-                android:textColor="@color/text_menu_color"
-                android:textSize="@dimen/table_text_size"
-                fontify:font="@string/font_roboto_light" />
-
-            <com.antran.expressfootball.widget.TextViewWithFont
-                android:id="@+id/point"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="17"
-                android:textColor="@color/text_menu_color"
-                android:textSize="@dimen/table_text_point"
                 fontify:font="@string/font_roboto_light" />
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <com.antran.expressfootball.widget.TextViewWithFont
+            android:id="@+id/played_game"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="24"
+            android:textColor="@color/text_menu_color"
+            android:textSize="@dimen/table_text_size"
+            fontify:font="@string/font_roboto_light" />
+
+        <com.antran.expressfootball.widget.TextViewWithFont
+            android:id="@+id/goal_diff"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="54"
+            android:textColor="@color/text_menu_color"
+            android:textSize="@dimen/table_text_size"
+            fontify:font="@string/font_roboto_light" />
+
+        <com.antran.expressfootball.widget.TextViewWithFont
+            android:id="@+id/point"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="17"
+            android:textColor="@color/text_menu_color"
+            android:textSize="@dimen/table_text_point"
+            fontify:font="@string/font_roboto_light" />
+
+    </LinearLayout>
+
 </RelativeLayout>

@@ -44,22 +44,10 @@ public class MenuView {
         this.navigationView = navigationView;
         menu = navigationView.getMenu();
         applyFontToDefaultMenuItems();
-//        picasso = Picasso.with(navigationView.getContext().getApplicationContext());
-//        picasso.setIndicatorsEnabled(false);
-//        picasso.setLoggingEnabled(true);
         imageLoader = MySingleton.getInstance(navigationView.getContext()).getImageLoader();
 
-
-//        // Set the adapter for the list view
-//        navigationView.setAdapter(new ArrayAdapter<String>(this,
-//                R.layout.drawer_list_item, mPlanetTitles));
-//        // Set the list's click listener
-//        navigationView.setOnItemClickListener(new DrawerItemClickListener());
     }
 
-//    public void setAdapter(ArrayAdapter<String> adapter){
-//        navigationView.setAdapter(adapter);
-//    }
 
     public void setListener(final MenuViewListener ltn) {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
@@ -89,43 +77,10 @@ public class MenuView {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(navigationView.getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(navigationView.getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                error.printStackTrace();
             }
         });
-//        if (icon != null && icon.compareTo("") != 0){
-//            ImageLoader imageLoader = new ImageLoader(navigationView.getResources(), icon, new ImageLoadCallback() {
-//                @Override
-//                public void onPreLoad() {
-//                }
-//
-//                @Override
-//                public void onLoadSuccessfully(Drawable drawable) {
-//                    menuItem.setIcon(drawable);
-//                }
-//
-//                @Override
-//                public void onLoadFailure() {
-//                    Toast.makeText(navigationView.getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//            imageLoader.execute();
-//    }
-//        picasso.load(icon).placeholder(R.drawable.ic_ball).into(new Target() {
-//                @Override
-//                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                    menuItem.setIcon(new BitmapDrawable(navigationView.getResources(), bitmap));
-//                }
-//
-//                @Override
-//                public void onBitmapFailed(Drawable errorDrawable) {
-//                    Toast.makeText(navigationView.getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onPrepareLoad(Drawable placeHolderDrawable) {
-//                    menuItem.setIcon(placeHolderDrawable);
-//                }
-//            });
 
         menuItem.setOnMenuItemClickListener(onMenuItemClickListener);
     }
@@ -157,5 +112,9 @@ public class MenuView {
             //the method we have create in activity
             applyFontToMenuItem(mi);
         }
+    }
+
+    public boolean isShown() {
+        return navigationView.isShown();
     }
 }

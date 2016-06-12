@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -35,18 +36,11 @@ public class MatchItemView {
     private static final int LAYOUT_ITEM = R.layout.match_item;
 
     private View container;
-    private CardView cardView;
+    private LinearLayout cardView;
     private TextViewWithFont title;
     private TextViewWithFont detail;
     private TextViewWithFont date;
     private TextViewWithFont time;
-    //    private ImageView homeLogo;
-//    private TextView homeScore;
-//    private ImageView awayLogo;
-//    private TextView awayScore;
-//    private TextView league;
-//    private TextView stadium;
-//    private TextView round;
     private NetworkImageView thumbnail;
     private Picasso picasso;
     private GenericRequestBuilder<Uri, InputStream, SVG, Bitmap> requestBuilder;
@@ -55,7 +49,7 @@ public class MatchItemView {
     public MatchItemView(ViewGroup parent) {
         container = LayoutInflater.from(parent.getContext()).inflate(LAYOUT_ITEM, parent, false);
 
-        cardView = (CardView) container.findViewById(R.id.cardview);
+        cardView = (LinearLayout) container.findViewById(R.id.cardview);
         title = (TextViewWithFont) container.findViewById(R.id.title);
         title.setSelected(true);
         detail = (TextViewWithFont) container.findViewById(R.id.detail);
@@ -63,19 +57,9 @@ public class MatchItemView {
         time = (TextViewWithFont) container.findViewById(R.id.time);
         thumbnail = (NetworkImageView) container.findViewById(R.id.thumbnail);
         thumbnail.setDefaultImageResId(R.drawable.video_placeholder);
-//        homeLogo = (ImageView) container.findViewById(R.id.home_logo);
-//        homeLogo.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-//        homeScore = (TextView) container.findViewById(R.id.home_score);
-//        awayLogo = (ImageView) container.findViewById(R.id.away_logo);
-//        awayLogo.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-//        awayScore = (TextView) container.findViewById(R.id.away_score);
-//        league = (TextView) container.findViewById(R.id.league);
-//        stadium = (TextView) container.findViewById(R.id.stadium);
-//        round = (TextView) container.findViewById(R.id.round);
 
         picasso = Picasso.with(parent.getContext().getApplicationContext());
         picasso.setIndicatorsEnabled(false);
-//        picasso.setLoggingEnabled(true);
 
         // Get the ImageLoader through your singleton class.
         imageLoader = MySingleton.getInstance(parent.getContext()).getImageLoader();

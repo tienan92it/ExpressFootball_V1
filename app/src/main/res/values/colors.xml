@@ -17,4 +17,5 @@
     <color name="toolbar_color">#C4090B</color>
     <color name="background_menu">#d2252931</color>
     <color name="background_ranking_icon">#422a30</color>
+    <color name="hover_card_item_background">#d9252931</color>
 </resources>

@@ -42,7 +42,6 @@ public class MenuController implements MenuViewListener {
     private List<League> leagues;
 
     public MenuController(Context context, MenuView menuView, MenuControllerListener ltn) {
-//        super(context, R.layout.drawer_list_item);
         this.context = context;
         this.menuView = menuView;
         this.listener = ltn;
@@ -78,7 +77,6 @@ public class MenuController implements MenuViewListener {
     }
 
     public void loadLeagueMenuItems() {
-//        listener.onLoading();
         menuItems.clear();
         menuView.clearLeagueMenuItem();
         int leaguesSize = leagues.size();
@@ -90,41 +88,9 @@ public class MenuController implements MenuViewListener {
                         listener.onSubMenuItemClick(league.getLeagueId(), league.getLeagueName()));
             }
         }
-//        String url = Global.getURLLeaguesWith(1, 15, "order", "asc");
-//        Log.e("URL", url);
-//        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        listener.onLoaded();
-////                        CachingManager.getInstance(context).cachesString(CachingContant.LEAGUES_JSON, response.toString());
-//                        try {
-//                            Leagues.getInstance(context).importLeagues(response);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        for (int i = 0; i < response.length(); i++) {
-//                            try {
-//                                JSONObject jsonObject = response.getJSONObject(i);
-//                                League league = League.parse(jsonObject);
-//                                if (league.getStatus() == 1) {
-//                                    menuItems.add(league);
-//                                    menuView.addLeagueMenuItem(league.getPriority(), league.getLeagueName(), league.getLogo(),
-//                                            listener.onSubMenuItemClick(league.getLeagueId(), league.getLeagueName()));
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        listener.onLoaded();
-//                        Toast.makeText(context, "Some things went wrong", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//        MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+    }
+
+    public boolean isShown(){
+        return menuView.isShown();
     }
 }

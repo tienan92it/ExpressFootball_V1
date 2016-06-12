@@ -34,7 +34,7 @@ public class FootballVideoScreen extends Activity implements LoadingControllerLi
         LoadingView loadingView = new LoadingView(context);
         loadingController = new LoadingController(loadingView, this);
 
-        FootballVideoView footballVideoView = new FootballVideoView(findViewById(R.id.root_view), videoLink);
+        FootballVideoView footballVideoView = new FootballVideoView(findViewById(R.id.swipe_refresh), videoLink);
         footballVideoController = new FootballFootballVideoController(context, footballVideoView, this);
         footballVideoView.setListener(footballVideoController);
 

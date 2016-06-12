@@ -3,6 +3,7 @@ package com.antran.expressfootball.matchesfragment.matches;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.antran.expressfootball.R;
 import com.antran.expressfootball.matchesfragment.matchitem.MatchItemController;
@@ -53,5 +54,22 @@ public class MatchesView {
 
     public void setRefreshComplete() {
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void startRefresh() {
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
+    public void hideView() {
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    public void showView() {
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

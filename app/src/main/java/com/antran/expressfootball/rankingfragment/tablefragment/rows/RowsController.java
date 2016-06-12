@@ -86,10 +86,18 @@ public class RowsController extends RecyclerView.Adapter<RowController> implemen
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    listener.lostConnection();
                 }
             });
             MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
         }
+    }
+
+    public void show() {
+        rowsView.showView();
+    }
+
+    public void hide() {
+        rowsView.hideView();
     }
 }

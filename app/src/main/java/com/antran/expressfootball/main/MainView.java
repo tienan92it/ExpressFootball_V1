@@ -22,6 +22,8 @@ public class MainView {
     private Toolbar toolbar;
 
     private String titleFont;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+
 
     public MainView(final Activity activity, DrawerLayout drawerLayout) {
         this.drawerLayout = drawerLayout;
@@ -37,7 +39,7 @@ public class MainView {
         toolbar.setTitle(FontManager.transferTextToFont(drawerLayout.getContext(), title, titleFont));
         toolbar.setTitleTextColor(Color.WHITE);
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.app_name, R.string.app_name) {
+        actionBarDrawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.app_name, R.string.app_name) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -71,5 +73,9 @@ public class MainView {
 
     public void setTitle(String title) {
         toolbar.setTitle(FontManager.transferTextToFont(drawerLayout.getContext(), title, titleFont));
+    }
+
+    public void syncState(){
+        actionBarDrawerToggle.syncState();
     }
 }
