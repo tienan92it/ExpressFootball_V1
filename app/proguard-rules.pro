@@ -17,3 +17,4 @@
 #}
 -dontwarn com.parse.**
 -dontwarn com.squareup.picasso.**
+-keep class com.parse.**

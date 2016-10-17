@@ -1,6 +1,7 @@
 package com.antran.expressfootball;
 
 import android.app.Application;
+import android.support.annotation.Keep;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
